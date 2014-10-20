@@ -1,0 +1,42 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          Resource.txt
+
+*** Variables ***
+
+*** Test Cases ***
+Invalid_Name_Symbols
+    _Invalid Test Run    afe#$67    50
+
+Invalid_Name_Less5Char
+    _Invalid Test Run    ana    60
+
+Invalid_Name_More50Char
+    _Invalid Test Run    qwertyuioplkjhgfdsazxcvbnmqwertyuioplkjhgfdsazxcvbnm    70
+
+Invalid_Age_Less5
+    _Invalid Test Run    user 1    1
+
+Invalid_Age_More150
+    _Invalid Test Run    user 2    200
+
+*** Keywords ***
+_Invalid Test Run
+    [Arguments]    ${name}    ${age}
+    set selenium speed    1
+    Open URL
+    Enter Credentials    ${name}    ${age}
+    User Log-In
+
+Open URL
+    open browser    https://docs.google.com/forms/d/12f7orObPipIDCZOOQsIH9_U6kGgEVOGFhd5qgO0myEo/viewform?fbzx=-5294445733973195140    firefox
+
+Enter Credentials
+    [Arguments]    ${name}    ${age}
+    input text    entry_1563791636    ${name}
+    input text    entry_930637752    ${age}
+    click button    id=group_351010933_1
+
+User Log-In
+    click button    id=ss-submit
+    page should contain    ${login_error_1}
