@@ -1,0 +1,126 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          Resource.txt
+
+*** Test Cases ***
+Validate_Controls
+    Set Selenium speed    1
+    Open URL
+    Validate Login Control
+    Input credentials
+    Validate Men Sports Control
+    Return to Login
+    Validate Women Sports Control
+
+Validate_Labels
+    Set Selenium speed    1
+    Open URL
+    Validate LogIn Page
+    Validate Men Sports Page
+    Return to LogIn
+    Validate Women Sports Page
+    Validate Done Page
+    Validate Summary Page
+
+*** Keywords ***
+Open URL
+    open browser    ${url}    ${browser}
+
+Validate LogIn Page
+    title should be    ${login_title}
+    element text should be    xpath=//div/div[2]/div/div    ${login_required}
+    element text should be    xpath=//div/div/div/label/div    ${login_name}
+    element text should be    xpath=//div[2]/div/div/label/div    ${login_age}
+    element text should be    xpath=//div[3]/div/div/label/div    ${login_gender}
+    element text should be    xpath=//div[3]/div/div/ul/li/label/span[2]    ${login_male}
+    element text should be    xpath=//div[3]/div/div/ul/li[2]/label/span[2]    ${login_female}
+    element text should be    xpath=//div[3]/div/div/ul/li[3]/label/span[2]    ${login_others}
+    click button    id=ss-submit
+    click element    xpath=//div/div[2]/div/div
+    element text should be    xpath=//div[1]/div/div/div[2]    ${login_error}
+    element text should be    xpath=//div[2]/div/div/div[2]    ${login_error}
+    element text should be    xpath=//div[3]/div/div/div[2]    ${login_error}
+    Input credentials
+
+Input Credentials
+    input text    entry_1563791636    @{txt_username}[0]
+    input text    entry_930637752    @{txt_age}[0]
+    click button    id=group_351010933_1
+    click button    id=ss-submit
+
+Validate Men Sports Page
+    title should be    ${login_title}
+    element text should be    xpath=//div[2]/div/div/label/div[1]    ${men_title}
+    element text should be    xpath=//div[2]/div/div/ul/li[1]/label/span[2]    ${men_basketball}
+    element text should be    xpath=//div[2]/div/div/ul/li[2]/label/span[2]    ${men_wrestling}
+    element text should be    xpath=//div[2]/div/div/ul/li[3]/label/span[2]    ${men_running}
+    element text should be    xpath=//div[2]/div/div/ul/li[4]/label/span[2]    ${men_mma}
+    element text should be    xpath=//div[2]/div/div/ul/li[5]/label/span[2]    ${men_boxing}
+
+Return to LogIn
+    click button    id=ss-back-button
+    input text    entry_1563791636    @{txt_username}[0]
+    input text    entry_930637752    @{txt_age}[0]
+    click button    id=group_351010933_2
+    click button    id=ss-submit
+
+Validate Women Sports Page
+    title should be    ${login_title}
+    element text should be    xpath=//div[2]/div/div/label/div[1]    ${women_title}
+    element text should be    xpath=//div[2]/div/div/ul/li[1]/label/span[2]    ${women_volleyball}
+    element text should be    xpath=//div[2]/div/div/ul/li[2]/label/span[2]    ${women_swimming}
+    element text should be    xpath=//div[2]/div/div/ul/li[3]/label/span[2]    ${women_running}
+    element text should be    xpath=//div[2]/div/div/ul/li[4]/label/span[2]    ${women_gymnastics}
+    element text should be    xpath=//div[2]/div/div/ul/li[5]/label/span[2]    ${women_tennis}
+    Select check box    id=group_175266393_2
+    Select check box    id=group_175266393_4
+    Click button    ss-submit
+
+Validate Done Page
+    title should be    ${res_title}
+    element text should be    xpath=//div[1]/div/div[2]/div[1]    ${res_recorded}
+    element text should be    xpath=//div[1]/div/div[2]/div[2]/a[1]    ${res_showSummary}
+    element text should be    xpath=//div[1]/div/div[2]/div[2]/a[2]    ${res_makeNew}
+    click link    ${res_showSummary}
+
+Validate Summary Page
+    Select Window    title=${sum_title}
+    element text should be    xpath=//h1    ${sum_summary}
+    element text should be    xpath=//h3    ${sum_name}
+    element text should be    xpath=//h3[2]    ${sum_age}
+    element text should be    xpath=//h3[3]    ${sum_gender}
+    element text should be    xpath=//td    ${login_male}
+    element text should be    xpath=//tr[2]/td    ${login_female}
+    element text should be    xpath=//tr[3]/td    ${login_others}
+    element text should be    xpath=//h3[4]    ${men_title}
+    element text should be    xpath=//div[4]/div[2]/table/tbody/tr/td    ${men_basketball}
+    element text should be    xpath=//div[4]/div[2]/table/tbody/tr[2]/td    ${men_wrestling}
+    element text should be    xpath=//div[4]/div[2]/table/tbody/tr[3]/td    ${men_running}
+    element text should be    xpath=//div[4]/div[2]/table/tbody/tr[4]/td    ${men_mma}
+    element text should be    xpath=//div[4]/div[2]/table/tbody/tr[5]/td    ${men_boxing}
+    element text should be    xpath=//h3[5]    ${women_title}
+    element text should be    xpath=//div[5]/div[2]/table/tbody/tr/td    ${women_volleyball}
+    element text should be    xpath=//div[5]/div[2]/table/tbody/tr[2]/td    ${women_swimming}
+    element text should be    xpath=//div[5]/div[2]/table/tbody/tr[3]/td    ${women_running}
+    element text should be    xpath=//div[5]/div[2]/table/tbody/tr[4]/td    ${women_gymnastics}
+    element text should be    xpath=//div[5]/div[2]/table/tbody/tr[5]/td    ${women_tennis}
+    element text should be    xpath=//div[2]/div/h2    ${sum_graph}
+
+Validate Login Control
+    page should contain radio button    id=group_351010933_1
+    page should contain radio button    id=group_351010933_2
+    page should contain radio button    id=group_351010933_3
+
+Validate Men Sports Control
+    page should contain check box    id=group_1887354367_1
+    page should contain check box    id=group_1887354367_2
+    page should contain check box    id=group_1887354367_3
+    page should contain check box    id=group_1887354367_4
+    page should contain check box    id=group_1887354367_5
+
+Validate Women Sports Control
+    page should contain check box    id=group_175266393_1
+    page should contain check box    id=group_175266393_2
+    page should contain check box    id=group_175266393_3
+    page should contain check box    id=group_175266393_4
+    page should contain check box    id=group_175266393_5
