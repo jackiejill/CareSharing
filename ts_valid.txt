@@ -1,0 +1,58 @@
+*** Settings ***
+Library           Selenium2Library
+Library           String
+Resource          Resource.txt
+
+*** Variables ***
+
+*** Test Cases ***
+Valid_Input
+    set selenium speed    1
+    _Valid Test Run
+
+*** Keywords ***
+_Valid Test Run
+    Open URL
+    : FOR    ${index}    IN RANGE    5
+    \    Enter Credentials    ${index}
+    \    Select Sports    ${index}
+    \    Run Keyword if    ${index} != 4    New Log-In    ELSE    Show Summary
+
+Open URL
+    open browser    https://docs.google.com/forms/d/12f7orObPipIDCZOOQsIH9_U6kGgEVOGFhd5qgO0myEo/viewform?fbzx=-5294445733973195140    firefox
+
+Enter Credentials
+    [Arguments]    ${index}
+    input text    entry_1563791636    @{txt_username}[${index}]
+    input text    entry_930637752    @{txt_age}[${index}]
+    click button    id=@{id_gender}[${index}]
+    click button    id=ss-submit
+
+Select Sports
+    [Arguments]    ${index}
+    ${sport}=    get text    xpath=//div[2]/div/div/label/div[1]
+    Run keyword if    '${sport}'=='${men_title}'    Select Men Sports    ELSE    Select Women Sports
+
+Select Men Sports
+    Select check box    id=group_1887354367_1
+    Select check box    id=group_1887354367_3
+    Select check box    id=group_1887354367_4
+    click button    id=ss-submit
+
+Select Women Sports
+    select check box    id=group_175266393_1
+    select check box    id=group_175266393_2
+    select check box    id=group_175266393_4
+    click button    id=ss-submit
+
+New Log-In
+    click link    Magsumite ng iba pang tugon
+
+Show Summary
+    click link    Tingnan ang mga nakaraang tugon
+    select window    ${sum_title}
+    check created users
+
+Check Created Users
+    :FOR    ${index}    IN RANGE    5
+    \    table should contain    xpath=//div[3]/div/div/div    @{txt_username}[${index}]
