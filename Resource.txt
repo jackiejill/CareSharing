@@ -1,0 +1,48 @@
+*** Settings ***
+Documentation     This ressource file contain common and globals variables
+Library           Selenium2Library
+Library           String
+
+*** Variables ***
+${browser}        firefox
+${url}            \https://docs.google.com/forms/d/12f7orObPipIDCZOOQsIH9_U6kGgEVOGFhd5qgO0myEo/viewform?fbzx=-5294445733973195140
+@{txt_username}    user 1    user 2    user 3    user 4    user 5
+@{txt_age}        23    56    87    44    105
+@{id_gender}      group_351010933_1    group_351010933_2    group_351010933_2    group_351010933_1    group_351010933_2
+${login_title}    Test Form
+${login_required}    *Kinakailangan
+${login_name}     Name *
+${login_age}      AgeXX *
+${login_gender}    Gender *
+${login_male}     Male
+${login_female}    Female
+${login_others}    Others
+${login_submit}    Magpatuloy »
+${login_error}    Kailangang sagutin ang tanong na ito
+${login_error_1}    Invalid value.
+${men_title}      Sports (Men)
+${men_basketball}    BasketballX
+${men_wrestling}    Wrestling
+${men_running}    RunningX
+${men_mma}        MMA
+${men_boxing}     Boxing
+${men_back}       « Bumalik
+${men_submit}     Isumite
+${women_title}    Sports (Women)
+${women_volleyball}    Volleyball
+${women_swimming}    Swimming
+${women_running}    Running
+${women_gymnastics}    Gymnastics
+${women_tennis}    Tennis
+${women_back}     « Bumalik
+${women_submit}    Isumite
+${res_title}      Salamat!
+${res_recorded}    Your response has been recorded.
+${res_showSummary}    Tingnan ang mga nakaraang tugon
+${res_makeNew}    Magsumite ng iba pang tugon
+${sum_summary}    Buod
+${sum_graph}      Dami ng sagot araw-araw
+${sum_name}       Name
+${sum_age}        AgeXX
+${sum_gender}     Gender
+${sum_title}      Test Form - Google Forms
